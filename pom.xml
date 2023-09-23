@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>de.nmadev</groupId>
-  <artifactId>TextDisplayTools</artifactId>
+  <artifactId>DisplayEntityTools</artifactId>
   <version>1.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>TextDisplayTools</name>
+  <name>DisplayEntityTools</name>
 
   <properties>
     <java.version>17</java.version>

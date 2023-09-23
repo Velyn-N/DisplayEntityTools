@@ -1,4 +1,4 @@
-package de.nmadev.textdisplaytools;
+package de.nmadev.displayentitytools;
 
 public class Logger {
 

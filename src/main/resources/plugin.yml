@@ -1,17 +1,17 @@
-name: TextDisplayTools
-description: Small-footprint Plugin for easier handling of Minecraft's TextDisplay Entities
+name: DisplayEntityTools
+description: Small-footprint Plugin for easier handling of Minecraft's Display-Entities
 version: '${project.version}'
 author: Velyn
-main: de.nmadev.textdisplaytools.TextDisplayTools
+main: de.nmadev.displayentitytools.DisplayEntityTools
 api-version: '1.20'
-website: https://github.com/Velyn-N/TextDisplayTools
+website: https://github.com/Velyn-N/DisplayEntityTools
 commands:
-  textdisplaytools:
-    description: Command-Access to TextDisplayTools
-    permission: textdisplaytools.use
-    aliases: [tdt]
+  displayentitytools:
+    description: Command-Access to DisplayEntityTools
+    permission: displayentitytools.use
+    aliases: [det]
 permissions:
-  textdisplaytools.admin:
-    description: "Admin Permission for TDT"
-  textdisplaytools.use:
-    description: "Usage Permission for TDT"
+  displayentitytools.use:
+    description: "Usage Permission for DET"
+  displayentitytools.admin:
+    description: "Admin Permission for DET"

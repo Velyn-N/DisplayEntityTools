@@ -1,9 +1,19 @@
-package de.nmadev.textdisplaytools.command;
+package de.nmadev.displayentitytools.command;
 
-import de.nmadev.textdisplaytools.Logger;
-import de.nmadev.textdisplaytools.SelectionCache;
-import de.nmadev.textdisplaytools.TextDisplayTools;
-import de.nmadev.textdisplaytools.command.subcommands.*;
+import de.nmadev.displayentitytools.DisplayEntityTools;
+import de.nmadev.displayentitytools.Logger;
+import de.nmadev.displayentitytools.SelectionCache;
+import de.nmadev.displayentitytools.command.subcommands.CreateSubCommand;
+import de.nmadev.displayentitytools.command.subcommands.DeleteSubCommand;
+import de.nmadev.displayentitytools.command.subcommands.DeselectSubCommand;
+import de.nmadev.displayentitytools.command.subcommands.SelectSubCommand;
+import de.nmadev.displayentitytools.command.subcommands.plugin.InfoSubCommand;
+import de.nmadev.displayentitytools.command.subcommands.plugin.ReloadSubCommand;
+import de.nmadev.displayentitytools.command.subcommands.position.GetToolSubCommand;
+import de.nmadev.displayentitytools.command.subcommands.text.ChangeTextSubCommand;
+import de.nmadev.displayentitytools.command.subcommands.text.LineWidthSubCommand;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -11,13 +21,12 @@ import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TdtCommand extends BaseCommand implements CommandExecutor, TabCompleter {
-    public static final String COMMAND_NAME = "textdisplaytools";
+    public static final String COMMAND_NAME = "displayentitytools";
 
-    public TdtCommand(TextDisplayTools plugin, SelectionCache selectionCache, Logger logger) {
+    public TdtCommand(DisplayEntityTools plugin, SelectionCache selectionCache, Logger logger) {
         super(COMMAND_NAME, logger, USE_PERMISSION);
         addSubCommand(new InfoSubCommand(plugin, logger));
         addSubCommand(new ReloadSubCommand(plugin, logger));
@@ -26,19 +35,18 @@ public class TdtCommand extends BaseCommand implements CommandExecutor, TabCompl
         addSubCommand(new DeselectSubCommand(logger, selectionCache));
 
         addSubCommand(new CreateSubCommand(logger, selectionCache));
+        addSubCommand(new DeleteSubCommand(logger, selectionCache));
         addSubCommand(new ChangeTextSubCommand(logger, selectionCache));
 
         addSubCommand(new LineWidthSubCommand(logger, selectionCache));
+
+        addSubCommand(new GetToolSubCommand(logger));
     }
 
     @Override
     public boolean handleCommandExecution(CommandSender sender, String label, String[] args) {
-        return false;
-    }
-
-    @Override
-    public List<String> provideTabComplete(CommandSender sender, String label, String[] args) {
-        return new ArrayList<>();
+        sendPrefixedReply(sender, Component.text("Please use one of the SubCommands.", NamedTextColor.YELLOW));
+        return true;
     }
 
     @Override

@@ -1,8 +1,8 @@
-package de.nmadev.textdisplaytools.command.subcommands;
+package de.nmadev.displayentitytools.command.subcommands.text;
 
-import de.nmadev.textdisplaytools.Logger;
-import de.nmadev.textdisplaytools.SelectionCache;
-import de.nmadev.textdisplaytools.command.BaseCommand;
+import de.nmadev.displayentitytools.Logger;
+import de.nmadev.displayentitytools.SelectionCache;
+import de.nmadev.displayentitytools.command.PlayerOnlyBaseCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Player;
@@ -10,7 +10,7 @@ import org.bukkit.entity.TextDisplay;
 
 import java.util.Optional;
 
-public class ChangeTextSubCommand extends BaseCommand {
+public class ChangeTextSubCommand extends PlayerOnlyBaseCommand {
 
     private final SelectionCache selectionCache;
 

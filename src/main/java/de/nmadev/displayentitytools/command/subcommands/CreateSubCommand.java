@@ -1,8 +1,8 @@
-package de.nmadev.textdisplaytools.command.subcommands;
+package de.nmadev.displayentitytools.command.subcommands;
 
-import de.nmadev.textdisplaytools.Logger;
-import de.nmadev.textdisplaytools.SelectionCache;
-import de.nmadev.textdisplaytools.command.BaseCommand;
+import de.nmadev.displayentitytools.Logger;
+import de.nmadev.displayentitytools.SelectionCache;
+import de.nmadev.displayentitytools.command.PlayerOnlyBaseCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Location;
@@ -11,7 +11,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TextDisplay;
 
-public class CreateSubCommand extends BaseCommand {
+public class CreateSubCommand extends PlayerOnlyBaseCommand {
 
     private final SelectionCache selectionCache;
 

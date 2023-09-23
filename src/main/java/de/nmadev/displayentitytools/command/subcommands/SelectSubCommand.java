@@ -1,8 +1,8 @@
-package de.nmadev.textdisplaytools.command.subcommands;
+package de.nmadev.displayentitytools.command.subcommands;
 
-import de.nmadev.textdisplaytools.Logger;
-import de.nmadev.textdisplaytools.SelectionCache;
-import de.nmadev.textdisplaytools.command.BaseCommand;
+import de.nmadev.displayentitytools.Logger;
+import de.nmadev.displayentitytools.SelectionCache;
+import de.nmadev.displayentitytools.command.PlayerOnlyBaseCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
-public class SelectSubCommand extends BaseCommand {
+public class SelectSubCommand extends PlayerOnlyBaseCommand {
     private static final int MAX_TEXT_LENGTH = 25;
 
     private final SelectionCache selectionCache;

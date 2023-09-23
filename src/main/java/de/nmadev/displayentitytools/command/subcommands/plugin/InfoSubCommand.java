@@ -1,8 +1,8 @@
-package de.nmadev.textdisplaytools.command.subcommands;
+package de.nmadev.displayentitytools.command.subcommands.plugin;
 
-import de.nmadev.textdisplaytools.Logger;
-import de.nmadev.textdisplaytools.TextDisplayTools;
-import de.nmadev.textdisplaytools.command.BaseCommand;
+import de.nmadev.displayentitytools.DisplayEntityTools;
+import de.nmadev.displayentitytools.Logger;
+import de.nmadev.displayentitytools.command.BaseCommand;
 import io.papermc.paper.plugin.configuration.PluginMeta;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
@@ -17,10 +17,10 @@ import java.util.Objects;
 
 public class InfoSubCommand extends BaseCommand {
 
-    private final TextDisplayTools plugin;
+    private final DisplayEntityTools plugin;
 
-    public InfoSubCommand(TextDisplayTools plugin, Logger logger) {
-        super("info", logger, USE_PERMISSION, false);
+    public InfoSubCommand(DisplayEntityTools plugin, Logger logger) {
+        super("info", logger, USE_PERMISSION);
         this.plugin = plugin;
     }
 

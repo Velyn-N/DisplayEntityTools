@@ -1,4 +1,4 @@
-package de.nmadev.textdisplaytools;
+package de.nmadev.displayentitytools;
 
 import org.bukkit.entity.Player;
 import org.bukkit.entity.TextDisplay;

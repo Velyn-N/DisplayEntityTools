@@ -1,10 +1,10 @@
-package de.nmadev.textdisplaytools;
+package de.nmadev.displayentitytools;
 
-import de.nmadev.textdisplaytools.command.TdtCommand;
+import de.nmadev.displayentitytools.command.TdtCommand;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class TextDisplayTools extends JavaPlugin {
+public final class DisplayEntityTools extends JavaPlugin {
 
     private Logger logger;
     private SelectionCache selectionCache;
@@ -39,7 +39,7 @@ public final class TextDisplayTools extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        logger.info("Shutting down TextDisplayTools.");
+        logger.info("Shutting down DisplayEntityTools.");
     }
 
     public void reload() {
