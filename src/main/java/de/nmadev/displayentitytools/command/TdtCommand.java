@@ -3,10 +3,8 @@ package de.nmadev.displayentitytools.command;
 import de.nmadev.displayentitytools.DisplayEntityTools;
 import de.nmadev.displayentitytools.Logger;
 import de.nmadev.displayentitytools.SelectionCache;
-import de.nmadev.displayentitytools.command.subcommands.CreateSubCommand;
-import de.nmadev.displayentitytools.command.subcommands.DeleteSubCommand;
-import de.nmadev.displayentitytools.command.subcommands.DeselectSubCommand;
-import de.nmadev.displayentitytools.command.subcommands.SelectSubCommand;
+import de.nmadev.displayentitytools.SettingCache;
+import de.nmadev.displayentitytools.command.subcommands.*;
 import de.nmadev.displayentitytools.command.subcommands.plugin.InfoSubCommand;
 import de.nmadev.displayentitytools.command.subcommands.plugin.ReloadSubCommand;
 import de.nmadev.displayentitytools.command.subcommands.position.GetToolSubCommand;
@@ -26,7 +24,7 @@ import java.util.List;
 public class TdtCommand extends BaseCommand implements CommandExecutor, TabCompleter {
     public static final String COMMAND_NAME = "displayentitytools";
 
-    public TdtCommand(DisplayEntityTools plugin, SelectionCache selectionCache, Logger logger) {
+    public TdtCommand(DisplayEntityTools plugin, SelectionCache selectionCache, SettingCache settingCache, Logger logger) {
         super(COMMAND_NAME, logger, USE_PERMISSION);
         addSubCommand(new InfoSubCommand(plugin, logger));
         addSubCommand(new ReloadSubCommand(plugin, logger));
@@ -41,6 +39,8 @@ public class TdtCommand extends BaseCommand implements CommandExecutor, TabCompl
         addSubCommand(new LineWidthSubCommand(logger, selectionCache));
 
         addSubCommand(new GetToolSubCommand(logger));
+
+        addSubCommand(new SettingSubCommand(logger, settingCache));
     }
 
     @Override
