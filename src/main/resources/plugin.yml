@@ -1,0 +1,17 @@
+name: TextDisplayTools
+description: Small-footprint Plugin for easier handling of Minecraft's TextDisplay Entities
+version: '${project.version}'
+author: Velyn
+main: de.nmadev.textdisplaytools.TextDisplayTools
+api-version: '1.20'
+website: https://github.com/Velyn-N/TextDisplayTools
+commands:
+  textdisplaytools:
+    description: Command-Access to TextDisplayTools
+    permission: textdisplaytools.use
+    aliases: [tdt]
+permissions:
+  textdisplaytools.admin:
+    description: "Admin Permission for TDT"
+  textdisplaytools.use:
+    description: "Usage Permission for TDT"
