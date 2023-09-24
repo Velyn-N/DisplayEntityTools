@@ -43,6 +43,7 @@ jobs:
         with:
           name: "DisplayEntityTools ${{ github.ref_name }}"
           draft: true
+          token: ${{ secrets.API_TOKEN }}
           files: target/*.jar
 
   finalize-release:
