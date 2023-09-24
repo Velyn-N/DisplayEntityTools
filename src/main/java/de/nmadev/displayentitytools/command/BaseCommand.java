@@ -1,6 +1,7 @@
 package de.nmadev.displayentitytools.command;
 
 import de.nmadev.displayentitytools.Logger;
+import de.nmadev.displayentitytools.MessageFormatHelper;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
@@ -80,10 +81,7 @@ public abstract class BaseCommand {
     }
 
     protected void sendPrefixedReply(CommandSender sender, Component component) {
-        sender.sendMessage(Component.text("[", NamedTextColor.DARK_GRAY)
-                .append(Component.text("DisplayEntityTools", NamedTextColor.AQUA))
-                .append(Component.text("] ", NamedTextColor.DARK_GRAY))
-                .append(component));
+        sender.sendMessage(MessageFormatHelper.prefixComponent(component));
     }
 
     public String getCommandName() {

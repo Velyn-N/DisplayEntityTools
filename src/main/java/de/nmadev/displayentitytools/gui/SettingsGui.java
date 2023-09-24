@@ -21,6 +21,7 @@ public class SettingsGui extends BaseGui {
     private GuiItem yModButton;
     private GuiItem zModButton;
     private GuiItem rotationModButton;
+    private GuiItem tiltModButton;
 
     public SettingsGui(PlayerSettings playerSettings) {
         super(27, "DisplayEntityTools Settings");
@@ -50,6 +51,11 @@ public class SettingsGui extends BaseGui {
                 playerSettings::setRotationMod,
                 5,
                 1);
+        tiltModButton = getModSettingButton(new ItemStack(Material.ARROW),
+                playerSettings::getTiltMod,
+                playerSettings::setTiltMod,
+                1,
+                0.1);
 
         update();
     }
@@ -76,11 +82,17 @@ public class SettingsGui extends BaseGui {
                                                         playerSettings.getRotationMod(),
                                         5,
                                           1));
+        tiltModButton.updateMeta(itemMeta -> buildItemMeta(itemMeta,
+                                            "Tilt Modifier",
+                                                        playerSettings.getTiltMod(),
+                                        1,
+                                          0.1));
 
-        setItem(10, xModButton);
-        setItem(12, yModButton);
-        setItem(14, zModButton);
-        setItem(16, rotationModButton);
+        setItem(9, xModButton);
+        setItem(11, yModButton);
+        setItem(13, zModButton);
+        setItem(15, rotationModButton);
+        setItem(17, tiltModButton);
     }
 
     private ItemMeta buildItemMeta(ItemMeta itemMeta,

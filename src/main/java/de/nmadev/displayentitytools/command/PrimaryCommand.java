@@ -21,10 +21,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class TdtCommand extends BaseCommand implements CommandExecutor, TabCompleter {
+public class PrimaryCommand extends BaseCommand implements CommandExecutor, TabCompleter {
     public static final String COMMAND_NAME = "displayentitytools";
 
-    public TdtCommand(DisplayEntityTools plugin, SelectionCache selectionCache, SettingCache settingCache, Logger logger) {
+    public PrimaryCommand(DisplayEntityTools plugin, SelectionCache selectionCache, SettingCache settingCache, Logger logger) {
         super(COMMAND_NAME, logger, USE_PERMISSION);
         addSubCommand(new InfoSubCommand(plugin, logger));
         addSubCommand(new ReloadSubCommand(plugin, logger));
@@ -38,7 +38,7 @@ public class TdtCommand extends BaseCommand implements CommandExecutor, TabCompl
 
         addSubCommand(new LineWidthSubCommand(logger, selectionCache));
 
-        addSubCommand(new GetToolSubCommand(logger));
+        addSubCommand(new GetToolSubCommand(logger, plugin));
 
         addSubCommand(new SettingSubCommand(logger, settingCache));
     }
