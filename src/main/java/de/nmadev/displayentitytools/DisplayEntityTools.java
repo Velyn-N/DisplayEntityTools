@@ -4,20 +4,30 @@ import de.nmadev.displayentitytools.command.PrimaryCommand;
 import de.nmadev.displayentitytools.gui.InventoryClickListener;
 import de.nmadev.displayentitytools.position.ItemClickListener;
 import de.nmadev.displayentitytools.position.ItemScrollListener;
-import org.bukkit.command.PluginCommand;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 public final class DisplayEntityTools extends JavaPlugin {
 
+    private ConfigReader configReader;
     private Logger logger;
     private SelectionCache selectionCache;
     private SettingCache settingCache;
+    private Command commandWrapper;
 
     @Override
     public void onEnable() {
-        saveDefaultConfig();
-        createLogger();
+        updateConfig();
+
+        configReader = new ConfigReader(getConfig());
+
+        logger = new Logger(getLogger(), configReader.isDebugMode());
+        logger.debug("Debug Mode is turned on.");
 
         selectionCache = new SelectionCache();
         settingCache = new SettingCache();
@@ -30,21 +40,25 @@ public final class DisplayEntityTools extends JavaPlugin {
     }
 
     private void createCommand(SelectionCache selectionCache, SettingCache settingCache) {
-        PluginCommand tdtCommand = getCommand(PrimaryCommand.COMMAND_NAME);
-        if (tdtCommand == null) {
-            logger.error("Could not register TDT-Command! This is a Bug, please report it to the Developer.");
-        } else {
-            PrimaryCommand commandImpl = new PrimaryCommand(this, selectionCache, settingCache, logger);
-            tdtCommand.setExecutor(commandImpl);
-            tdtCommand.setTabCompleter(commandImpl);
-            logger.info("Successfully registered TDT-Command.");
-        }
-    }
+        List<String> cmdAliases = configReader.getCommandAliases();
+        PrimaryCommand primaryCommand = new PrimaryCommand(this, selectionCache, settingCache, logger);
+        commandWrapper = new Command("displayentitytools",
+                                 "The primary Command for DisplayEntityTools giving access to all its Tools.",
+                              "/displayentitytools <subcommand> <args>",
+                                           cmdAliases) {
+            @Override
+            public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
+                return primaryCommand.execute(sender, commandLabel, args);
+            }
 
-    private void createLogger() {
-        boolean isDebugMode = getConfig().getBoolean("debug");
-        logger = new Logger(getLogger(), isDebugMode);
-        logger.debug("Debug Mode is turned on.");
+            @Override
+            public @NotNull List<String> tabComplete(@NotNull CommandSender sender,
+                                                     @NotNull String alias,
+                                                     @NotNull String[] args) throws IllegalArgumentException {
+                return primaryCommand.tabComplete(sender, alias, args);
+            }
+        };
+        getServer().getCommandMap().register(getName(), commandWrapper);
     }
 
     @Override
@@ -53,13 +67,25 @@ public final class DisplayEntityTools extends JavaPlugin {
     }
 
     public void reload() {
-        reloadConfig();
-        createLogger();
+        super.reloadConfig();
+        configReader.setConfig(getConfig());
+
+        logger.setDebugMode(configReader.isDebugMode());
+
         selectionCache.clearSelectionMap();
         settingCache.clearSettingsMap();
+
+        commandWrapper.setAliases(configReader.getCommandAliases());
     }
 
     private void registerEventListener(Listener listener) {
         getServer().getPluginManager().registerEvents(listener, this);
+    }
+
+    private void updateConfig() {
+        saveDefaultConfig();
+
+        getConfig().options().copyDefaults(true);
+        saveConfig();
     }
 }

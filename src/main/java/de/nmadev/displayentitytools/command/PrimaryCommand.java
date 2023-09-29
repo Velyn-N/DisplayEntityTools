@@ -12,20 +12,16 @@ import de.nmadev.displayentitytools.command.subcommands.text.ChangeTextSubComman
 import de.nmadev.displayentitytools.command.subcommands.text.LineWidthSubCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class PrimaryCommand extends BaseCommand implements CommandExecutor, TabCompleter {
-    public static final String COMMAND_NAME = "displayentitytools";
+public class PrimaryCommand extends BaseCommand {
 
     public PrimaryCommand(DisplayEntityTools plugin, SelectionCache selectionCache, SettingCache settingCache, Logger logger) {
-        super(COMMAND_NAME, logger, USE_PERMISSION);
+        super("displayentitytools", logger, USE_PERMISSION);
+
         addSubCommand(new InfoSubCommand(plugin, logger));
         addSubCommand(new ReloadSubCommand(plugin, logger));
 
@@ -43,25 +39,19 @@ public class PrimaryCommand extends BaseCommand implements CommandExecutor, TabC
         addSubCommand(new SettingSubCommand(logger, settingCache));
     }
 
+    public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
+        return super.onCommand(sender, commandLabel, args);
+    }
+
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender,
+                                             @NotNull String alias,
+                                             @NotNull String[] args) {
+        return super.onTabComplete(sender, alias, args);
+    }
+
     @Override
     public boolean handleCommandExecution(CommandSender sender, String label, String[] args) {
         sendPrefixedReply(sender, Component.text("Please use one of the SubCommands.", NamedTextColor.YELLOW));
         return true;
-    }
-
-    @Override
-    public boolean onCommand(@NotNull CommandSender commandSender,
-                             @NotNull Command command,
-                             @NotNull String label,
-                             @NotNull String[] args) {
-        return onCommand(commandSender, label, args);
-    }
-
-    @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender,
-                                                @NotNull Command command,
-                                                @NotNull String label,
-                                                @NotNull String[] args) {
-        return onTabComplete(commandSender, label, args);
     }
 }
