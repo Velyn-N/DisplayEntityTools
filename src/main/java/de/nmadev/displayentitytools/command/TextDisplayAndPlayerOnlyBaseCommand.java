@@ -10,14 +10,14 @@ import org.bukkit.entity.TextDisplay;
 
 import java.util.Optional;
 
-public abstract class TextEntityAndPlayerOnlyBaseCommand extends PlayerOnlyBaseCommand {
+public abstract class TextDisplayAndPlayerOnlyBaseCommand extends PlayerOnlyBaseCommand {
 
     protected final SelectionCache selectionCache;
 
-    public TextEntityAndPlayerOnlyBaseCommand(String commandName,
-                                              Logger logger,
-                                              String requiredPermission,
-                                              SelectionCache selectionCache) {
+    public TextDisplayAndPlayerOnlyBaseCommand(String commandName,
+                                               Logger logger,
+                                               String requiredPermission,
+                                               SelectionCache selectionCache) {
         super(commandName, logger, requiredPermission);
         this.selectionCache = selectionCache;
     }

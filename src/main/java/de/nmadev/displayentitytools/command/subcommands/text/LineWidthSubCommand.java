@@ -2,7 +2,7 @@ package de.nmadev.displayentitytools.command.subcommands.text;
 
 import de.nmadev.displayentitytools.Logger;
 import de.nmadev.displayentitytools.SelectionCache;
-import de.nmadev.displayentitytools.command.TextEntityAndPlayerOnlyBaseCommand;
+import de.nmadev.displayentitytools.command.TextDisplayAndPlayerOnlyBaseCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
@@ -11,7 +11,7 @@ import org.bukkit.entity.TextDisplay;
 
 import java.util.List;
 
-public class LineWidthSubCommand extends TextEntityAndPlayerOnlyBaseCommand {
+public class LineWidthSubCommand extends TextDisplayAndPlayerOnlyBaseCommand {
 
     public LineWidthSubCommand(Logger logger, SelectionCache selectionCache) {
         super("line-width", logger, USE_PERMISSION, selectionCache);
