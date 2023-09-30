@@ -3,7 +3,6 @@ package de.nmadev.displayentitytools;
 import de.nmadev.displayentitytools.command.PrimaryCommand;
 import de.nmadev.displayentitytools.gui.InventoryClickListener;
 import de.nmadev.displayentitytools.position.ItemClickListener;
-import de.nmadev.displayentitytools.position.ItemScrollListener;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.event.Listener;
@@ -35,7 +34,6 @@ public final class DisplayEntityTools extends JavaPlugin {
         createCommand(selectionCache, settingCache);
 
         registerEventListener(new InventoryClickListener());
-        registerEventListener(new ItemScrollListener(this, selectionCache, settingCache));
         registerEventListener(new ItemClickListener(this, selectionCache, settingCache));
     }
 
