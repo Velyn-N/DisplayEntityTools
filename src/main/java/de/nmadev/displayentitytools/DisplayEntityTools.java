@@ -70,9 +70,6 @@ public final class DisplayEntityTools extends JavaPlugin {
 
         logger.setDebugMode(configReader.isDebugMode());
 
-        selectionCache.clearSelectionMap();
-        settingCache.clearSettingsMap();
-
         commandWrapper.setAliases(configReader.getCommandAliases());
     }
 

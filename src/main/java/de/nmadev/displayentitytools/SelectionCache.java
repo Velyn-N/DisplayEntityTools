@@ -20,8 +20,4 @@ public class SelectionCache {
     public Optional<DisplayEntity> deselectDisplayEntity(Player player) {
         return Optional.ofNullable(selectionMap.remove(player));
     }
-
-    public void clearSelectionMap() {
-        selectionMap.clear();
-    }
 }

@@ -16,8 +16,4 @@ public class SettingCache {
     public Optional<PlayerSettings> unsetSettings(Player player) {
         return Optional.ofNullable(settingsMap.remove(player));
     }
-
-    public void clearSettingsMap() {
-        settingsMap.clear();
-    }
 }
