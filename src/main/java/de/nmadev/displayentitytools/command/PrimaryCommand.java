@@ -5,6 +5,7 @@ import de.nmadev.displayentitytools.Logger;
 import de.nmadev.displayentitytools.SelectionCache;
 import de.nmadev.displayentitytools.SettingCache;
 import de.nmadev.displayentitytools.command.subcommands.*;
+import de.nmadev.displayentitytools.command.subcommands.block.ChangeBlockSubCommand;
 import de.nmadev.displayentitytools.command.subcommands.plugin.InfoSubCommand;
 import de.nmadev.displayentitytools.command.subcommands.plugin.ReloadSubCommand;
 import de.nmadev.displayentitytools.command.subcommands.position.GetToolSubCommand;
@@ -22,20 +23,25 @@ public class PrimaryCommand extends BaseCommand {
     public PrimaryCommand(DisplayEntityTools plugin, SelectionCache selectionCache, SettingCache settingCache, Logger logger) {
         super("displayentitytools", logger, USE_PERMISSION);
 
+        // Block SubCommands
+        addSubCommand(new ChangeBlockSubCommand(logger, selectionCache));
+
+        // Plugin SubCommands
         addSubCommand(new InfoSubCommand(plugin, logger));
         addSubCommand(new ReloadSubCommand(plugin, logger));
 
-        addSubCommand(new SelectSubCommand(logger, selectionCache));
-        addSubCommand(new DeselectSubCommand(logger, selectionCache));
-
-        addSubCommand(new CreateSubCommand(logger, selectionCache));
-        addSubCommand(new DeleteSubCommand(logger, selectionCache));
+        // Text SubCommands
         addSubCommand(new ChangeTextSubCommand(logger, selectionCache));
-
         addSubCommand(new LineWidthSubCommand(logger, selectionCache));
 
+        // Position SubCommands
         addSubCommand(new GetToolSubCommand(logger, plugin));
 
+        // General SubCommands
+        addSubCommand(new CreateSubCommand(logger, selectionCache));
+        addSubCommand(new DeleteSubCommand(logger, selectionCache));
+        addSubCommand(new DeselectSubCommand(logger, selectionCache));
+        addSubCommand(new SelectSubCommand(logger, selectionCache));
         addSubCommand(new SettingSubCommand(logger, settingCache));
     }
 
