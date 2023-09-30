@@ -1,5 +1,6 @@
 package de.nmadev.displayentitytools.command.subcommands;
 
+import de.nmadev.displayentitytools.DisplayEntity;
 import de.nmadev.displayentitytools.Logger;
 import de.nmadev.displayentitytools.SelectionCache;
 import de.nmadev.displayentitytools.command.PlayerOnlyBaseCommand;
@@ -8,12 +9,11 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.TextDisplay;
+import org.bukkit.entity.*;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.IntStream;
 
@@ -40,40 +40,58 @@ public class SelectSubCommand extends PlayerOnlyBaseCommand {
                 return false;
             }
         }
-        Optional<TextDisplay> textDisplayOpt = getTextDisplayInRadius(player, radius);
-        if (textDisplayOpt.isPresent()) {
-            TextDisplay textDisplay = textDisplayOpt.get();
+        Optional<Display> displayEntityOptional = getDisplayEntityInRadius(player, radius);
+        if (displayEntityOptional.isPresent()) {
+            Display display = displayEntityOptional.get();
 
-            selectionCache.setSelection(player, textDisplay);
+            DisplayEntity displayEntity = new DisplayEntity(display);
+            selectionCache.setSelection(player, displayEntity);
 
-            String rawText = PlainTextComponentSerializer.plainText().serialize(textDisplay.text());
-            String shortText = rawText.length() > MAX_TEXT_LENGTH ? rawText.substring(0, MAX_TEXT_LENGTH) + "..." : rawText;
-            sendPrefixedReply(player,
-                    Component.text("Successfully selected the TextDisplay beginning with ", NamedTextColor.GREEN)
-                             .append(Component.text(shortText, NamedTextColor.DARK_GREEN)));
+            if (displayEntity.isTextDisplay()) {
+                String rawText = PlainTextComponentSerializer.plainText().serialize(displayEntity.asTextDisplay().text());
+                String shortText = rawText.length() > MAX_TEXT_LENGTH ? rawText.substring(0, MAX_TEXT_LENGTH) + "..." : rawText;
+                sendPrefixedReply(player,
+                        Component.text("Successfully selected the TextDisplay beginning with ", NamedTextColor.GREEN)
+                                 .append(Component.text(shortText, NamedTextColor.DARK_GREEN)));
+            } else if (displayEntity.isBlockDisplay()) {
+                BlockDisplay blockDisplay = displayEntity.asBlockDisplay();
+                String material = blockDisplay.getBlock().getMaterial().toString();
+                sendPrefixedReply(player,
+                        Component.text("Successfully selected the ", NamedTextColor.GREEN)
+                                 .append(Component.text(material, NamedTextColor.DARK_GREEN))
+                                 .append(Component.text(" BlockDisplay.", NamedTextColor.GREEN)));
+            } else if (displayEntity.isItemDisplay()) {
+                ItemDisplay blockDisplay = displayEntity.asItemDisplay();
+                String material = Objects.requireNonNull(blockDisplay.getItemStack()).getType().toString();
+                sendPrefixedReply(player,
+                        Component.text("Successfully selected the ", NamedTextColor.GREEN)
+                                 .append(Component.text(material, NamedTextColor.DARK_GREEN))
+                                 .append(Component.text(" ItemDisplay.", NamedTextColor.GREEN)));
+            }
+
             return true;
         }
         return false;
     }
 
-    private Optional<TextDisplay> getTextDisplayInRadius(Player player, double radius) {
+    private Optional<Display> getDisplayEntityInRadius(Player player, double radius) {
         Location playerLoc = player.getLocation();
         Collection<Entity> nearbyEntities = playerLoc.getWorld().getNearbyEntities(playerLoc, radius, radius, radius);
 
-        List<TextDisplay> nearbyTexts = nearbyEntities.stream()
-                .filter(entity -> entity instanceof TextDisplay)
-                .map(entity -> (TextDisplay) entity)
+        List<Display> nearbyTexts = nearbyEntities.stream()
+                .filter(entity -> entity instanceof Display)
+                .map(entity -> (Display) entity)
                 .toList();
 
         if (nearbyTexts.isEmpty()) {
             sendPrefixedReply(player, Component.text(
-                    String.format("Could not find a TextDisplay in a Range of %.3f Blocks.", radius),
+                    String.format("Could not find a DisplayEntity in a Range of %.3f Blocks.", radius),
                     NamedTextColor.RED));
             return Optional.empty();
         }
         if (nearbyTexts.size() > 1) {
             sendPrefixedReply(player, Component.text(
-                    String.format("There are %d TextDisplays in a %.3f Block Radius around you.",
+                    String.format("There are %d DisplayEntities in a %.3f Block Radius around you.",
                             nearbyTexts.size(),
                             radius), NamedTextColor.YELLOW));
         }

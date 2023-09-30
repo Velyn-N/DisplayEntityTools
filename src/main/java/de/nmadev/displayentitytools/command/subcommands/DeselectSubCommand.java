@@ -18,12 +18,12 @@ public class DeselectSubCommand extends PlayerOnlyBaseCommand {
 
     @Override
     public boolean handleCommandExecution(Player player, String label, String[] args) {
-        if (selectionCache.deselectTextDisplay(player).isPresent()) {
+        if (selectionCache.deselectDisplayEntity(player).isPresent()) {
             sendPrefixedReply(player,
-                    Component.text("Successfully deselected the TextDisplay.", NamedTextColor.GREEN));
+                    Component.text("Successfully deselected the DisplayEntity.", NamedTextColor.GREEN));
         } else {
             sendPrefixedReply(player,
-                    Component.text("You had no TextDisplay selected.", NamedTextColor.GREEN));
+                    Component.text("You had no DisplayEntity selected.", NamedTextColor.GREEN));
         }
         return true;
     }

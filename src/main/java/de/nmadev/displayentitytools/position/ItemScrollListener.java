@@ -5,7 +5,6 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.TextDisplay;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -48,8 +47,8 @@ public class ItemScrollListener implements Listener {
             if (modTypeOptional.isPresent()) {
                 event.setCancelled(true);
 
-                Optional<TextDisplay> textDisplayOpt = selectionCache.getSelectedTextDisplay(player);
-                if (textDisplayOpt.isEmpty()) {
+                Optional<DisplayEntity> displayEntityOptional = selectionCache.getSelectedDisplayEntity(player);
+                if (displayEntityOptional.isEmpty()) {
                     MessageFormatHelper.sendPrefixedMessage(player,
                             Component.text("You have no DisplayEntity selected.", NamedTextColor.RED));
                     return;
@@ -57,8 +56,8 @@ public class ItemScrollListener implements Listener {
 
                 PlayerSettings playerSettings = settingCache.getSettings(player);
                 PositionHelper.modifyPosition(modTypeOptional.get(),
-                                              playerSettings.getModByModType(modTypeOptional.get()) * direction,
-                                              textDisplayOpt.get());
+                                        playerSettings.getModByModType(modTypeOptional.get()) * direction,
+                                              displayEntityOptional.get().getDisplay());
             }
         }
     }
