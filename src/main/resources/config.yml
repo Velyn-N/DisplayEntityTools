@@ -1,4 +1,3 @@
-debug: false
-command-aliases:
+debug: false # Debug Option for Development and Debugging purposes.
+command-aliases: # Aliases for the one and only /displayentitytools Command
   - det
-
