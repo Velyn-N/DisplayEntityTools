@@ -6,6 +6,7 @@ import de.nmadev.displayentitytools.SelectionCache;
 import de.nmadev.displayentitytools.SettingCache;
 import de.nmadev.displayentitytools.command.subcommands.*;
 import de.nmadev.displayentitytools.command.subcommands.block.ChangeBlockSubCommand;
+import de.nmadev.displayentitytools.command.subcommands.item.ChangeItemSubCommand;
 import de.nmadev.displayentitytools.command.subcommands.plugin.InfoSubCommand;
 import de.nmadev.displayentitytools.command.subcommands.plugin.ReloadSubCommand;
 import de.nmadev.displayentitytools.command.subcommands.position.GetToolSubCommand;
@@ -25,6 +26,9 @@ public class PrimaryCommand extends BaseCommand {
 
         // Block SubCommands
         addSubCommand(new ChangeBlockSubCommand(logger, selectionCache));
+
+        // Item SubCommands
+        addSubCommand(new ChangeItemSubCommand(logger, selectionCache));
 
         // Plugin SubCommands
         addSubCommand(new InfoSubCommand(plugin, logger));
