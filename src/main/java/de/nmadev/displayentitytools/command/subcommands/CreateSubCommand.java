@@ -59,7 +59,7 @@ public class CreateSubCommand extends PlayerOnlyBaseCommand {
             case "ItemDisplay" -> {
                 Entity entity = playerLocation.getWorld().spawnEntity(playerLocation, EntityType.ITEM_DISPLAY);
                 if (entity instanceof ItemDisplay itemDisplay) {
-                    ItemStack itemStack = new ItemStack(Material.GRASS);
+                    ItemStack itemStack = new ItemStack(Material.SHORT_GRASS);
                     itemDisplay.setItemStack(itemStack);
                     display = itemDisplay;
                 }
