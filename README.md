@@ -1,6 +1,9 @@
 # DisplayEntityTools
 Small-footprint Paper Plugin for easier handling of Minecraft's Display-Entities
 
+> [!CAUTION]
+> This Project has been archived due to other Projects using up time. I might reactivate this Repository when I have time to work on it.
+
 ## Short Feature List
 
 - No Dependencies outside of Java and Paper itself
